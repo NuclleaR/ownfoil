@@ -14,3 +14,14 @@ data
 
 # pyenv
 .python-version
+
+# tailwind - downloaded binaries
+app/static/css/tailwindcss
+app/static/css/daisyui.mjs
+app/static/css/daisyui-theme.mjs
+
+# tailwind build output
+app/static/dist
+
+.claude
+games

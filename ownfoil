@@ -1,0 +1,26 @@
+#!/bin/bash
+
+COMPOSE_FILE="docker-compose.cloudflared.yml"
+
+case "$1" in
+  up)
+    docker compose -f "$COMPOSE_FILE" up -d --build
+    ;;
+  down)
+    docker compose -f "$COMPOSE_FILE" stop
+    ;;
+  restart)
+    docker compose -f "$COMPOSE_FILE" stop
+    docker compose -f "$COMPOSE_FILE" up -d --build
+    ;;
+  logs)
+    docker compose -f "$COMPOSE_FILE" logs -f
+    ;;
+  clean)
+    docker compose -f "$COMPOSE_FILE" down -v --remove-orphans
+    ;;
+  *)
+    echo "Usage: $0 {up|down|restart|logs|clean}"
+    exit 1
+    ;;
+esac

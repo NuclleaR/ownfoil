@@ -1,0 +1,30 @@
+services:
+  ownfoil:
+    container_name: ownfoil
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: "1000:1000"
+    entrypoint: ["python", "/app/app.py"]
+    ports:
+      - "8465:8465"
+    volumes:
+      - ${GAMES_DIR}:/data/games
+      - ./app:/app
+      - ./app/config:/app/config
+      - ./app/data:/app/data
+    networks:
+      - app_net
+
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:latest
+    command: tunnel --url http://ownfoil:8465 run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - ownfoil
+
+    networks:
+      - app_net
+
+networks:
+  app_net:

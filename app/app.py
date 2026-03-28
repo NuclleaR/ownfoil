@@ -195,7 +195,7 @@ def index(path=None):
         if not client_settings.get('enabled', False):
             logger.warning(f"{client.CLIENT_NAME} connection from {request.remote_addr} - Client is disabled")
             return client.error_response(f"Shop access from {client.CLIENT_NAME} is disabled.")
-        
+
         # Handle client request
         logger.info(f"{client.CLIENT_NAME} connection from {request.remote_addr}")
         return client.handle_request(request)
@@ -224,7 +224,7 @@ def settings_page():
 def setup_page():
     """Setup page showing client information and connection instructions."""
     reload_conf()
-    
+
     # Check if user has access (must have shop access or shop must be public)
     if not app_settings['shop']['public'] and admin_account_created():
         if not current_user.is_authenticated:
@@ -234,25 +234,25 @@ def setup_page():
 
     local_address = None
     local_port  = None
-    
+
     # Get remote host from configuration
     remote_host = app_settings['shop'].get('host', '')
-    
+
     # Check if we're accessing via the configured remote host
     # If so, hide the local tab since we're already remote
     show_local_tab = remote_host and (remote_host != request.host)
     if show_local_tab:
         local_address = request.host.split(':')[0]
         local_port = request.host.split(':')[1] if ':' in request.host else 80
-    
+
     # Check if clients are enabled
     tinfoil_enabled = app_settings.get('shop', {}).get('clients', {}).get('tinfoil', {}).get('enabled', False)
     sphaira_enabled = app_settings.get('shop', {}).get('clients', {}).get('sphaira', {}).get('enabled', False)
     cyberfoil_enabled = app_settings.get('shop', {}).get('clients', {}).get('cyberfoil', {}).get('enabled', False)
-    
+
     # Check if shop is public
     shop_public = app_settings['shop']['public']
-    
+
     return render_template(
         'setup.html',
         title='Setup',
@@ -310,7 +310,7 @@ def set_titles_settings_api():
     resp = {
         'success': True,
         'errors': []
-    } 
+    }
     return jsonify(resp)
 
 @app.post('/api/settings/shop')
@@ -322,7 +322,7 @@ def set_shop_settings_api():
     resp = {
         'success': True,
         'errors': []
-    } 
+    }
     return jsonify(resp)
 
 @app.route('/api/settings/library/paths', methods=['GET', 'POST', 'DELETE'])
@@ -510,7 +510,7 @@ def scan_library_api():
     resp = {
         'success': success,
         'errors': errors
-    } 
+    }
     return jsonify(resp)
 
 
@@ -531,11 +531,11 @@ def update_and_scan_job():
     """Combined job: updates TitleDB then scans library"""
     logger.info("Running update job (TitleDB update and library scan)...")
     global scan_in_progress
-    
+
     # Update TitleDB with locking
     with titledb_update_lock:
         is_titledb_update_running = True
-    
+
     logger.info("Starting TitleDB update...")
     try:
         settings = load_settings()
@@ -546,13 +546,13 @@ def update_and_scan_job():
     finally:
         with titledb_update_lock:
             is_titledb_update_running = False
-    
+
     # Check if update is still running before scanning
     with titledb_update_lock:
         if is_titledb_update_running:
             logger.info("Skipping library scan: TitleDB update still in progress.")
             return
-    
+
     # Scan library with locking
     logger.info("Starting library scan...")
     with scan_lock:
@@ -560,7 +560,7 @@ def update_and_scan_job():
             logger.info('Skipping library scan: scan already in progress.')
             return
         scan_in_progress = True
-    
+
     try:
         scan_library()
         post_library_change()
@@ -570,7 +570,7 @@ def update_and_scan_job():
     finally:
         with scan_lock:
             scan_in_progress = False
-    
+
     logger.info("Update job completed.")
 
 def schedule_update_and_scan_job(app: Flask, interval_str: str, run_first: bool = True, run_once: bool = False):

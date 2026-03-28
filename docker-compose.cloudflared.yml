@@ -11,8 +11,8 @@ services:
     volumes:
       - ${GAMES_DIR}:/data/games
       - ./app:/app
-      - ./app/config:/app/config
-      - ./app/data:/app/data
+      - ./data/config:/app/config
+      - ./data/data:/app/data
     networks:
       - app_net
 

@@ -20,8 +20,11 @@ app/static/css/tailwindcss
 app/static/css/daisyui.mjs
 app/static/css/daisyui-theme.mjs
 tw/tailwindcss
+tw/tailwindcss-cli
 tw/daisyui.mjs
 tw/daisyui-theme.mjs
+tw/output.css
+tw/input.css.bak
 
 # tailwind build output
 app/static/dist

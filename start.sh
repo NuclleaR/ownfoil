@@ -11,25 +11,18 @@ cleanup() {
 # Set signal handler
 trap cleanup INT TERM
 
-if [ ! -f "./tw/tailwindcss" ]; then
+if [ ! -f "./tw/tailwindcss-cli" ]; then
     echo "Downloading Tailwind CSS + DaisyUI..."
+    cp tw/input.css tw/input.css.bak
     (cd tw && curl -sL daisyui.com/fast | bash)
+    mv tw/input.css.bak tw/input.css
+    mv tw/tailwindcss tw/tailwindcss-cli
 fi
-
-echo "Starting Tailwind CSS watcher..."
-./tw/tailwindcss -w -i tw/input.css -o app/static/css/main.css &
-PID_TAILWIND=$!
 
 echo "Starting Flask server..."
 uv run python app/app.py &
 PID_SERVER=$!
 
-echo ""
-echo "✓ Both processes are running"
-echo "  - Tailwind CSS: PID $PID_TAILWIND"
-echo "  - Flask Server: PID $PID_SERVER"
-echo ""
+echo "Starting Tailwind CSS watcher..."
 echo "Press Ctrl+C to stop"
-
-#wait for both processes to finish
-wait
+./tw/tailwindcss-cli -w -i tw/input.css -o app/static/css/main.css

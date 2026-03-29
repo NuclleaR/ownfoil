@@ -2285,6 +2285,9 @@
   .my-0 {
     margin-block: calc(var(--spacing) * 0);
   }
+  .my-4 {
+    margin-block: calc(var(--spacing) * 4);
+  }
   .label {
     @layer daisyui.l1.l2.l3 {
       display: inline-flex;
@@ -2522,6 +2525,10 @@
   .table {
     display: table;
   }
+  .size-6 {
+    width: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 6);
+  }
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
@@ -2667,6 +2674,9 @@
   .px-1 {
     padding-inline: calc(var(--spacing) * 1);
   }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
@@ -2751,6 +2761,9 @@
       --alert-border-color: var(--color-warning);
       --alert-color: var(--color-warning);
     }
+  }
+  .text-accent {
+    color: var(--color-accent);
   }
   .text-base-content {
     color: var(--color-base-content);
@@ -2909,6 +2922,15 @@
     @media (width >= 48rem) {
       display: none;
     }
+  }
+}
+@layer components {
+  .icon-check {
+    display: inline-block;
+    width: calc(var(--spacing) * 4);
+    height: calc(var(--spacing) * 4);
+    fill: var(--color-success);
+    vertical-align: text-top;
   }
 }
 @layer base {

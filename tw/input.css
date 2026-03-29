@@ -44,3 +44,9 @@
   --depth: 1;
   --noise: 0;
 }
+
+@layer components {
+  .icon-check {
+    @apply size-4 fill-success inline-block align-text-top;
+  }
+}

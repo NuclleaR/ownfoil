@@ -19,6 +19,9 @@ data
 app/static/css/tailwindcss
 app/static/css/daisyui.mjs
 app/static/css/daisyui-theme.mjs
+tw/tailwindcss
+tw/daisyui.mjs
+tw/daisyui-theme.mjs
 
 # tailwind build output
 app/static/dist

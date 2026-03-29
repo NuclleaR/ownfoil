@@ -2,9 +2,10 @@
 
 @source not "./tailwindcss";
 @source not "./daisyui{,*}.mjs";
-@source "../../templates/**/*.html";
-@source "../js/**/*.js";
+
+@source "../app/templates/**/*.html";
+@source "../app/static/js/**/*.js";
 
 @plugin "./daisyui.mjs" {
-  themes: sunset;
+  themes: night;
 }

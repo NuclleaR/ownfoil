@@ -590,7 +590,7 @@ if __name__ == '__main__':
     init_users(app)
     init()
     logger.info('Initialization steps done, starting server...')
-    app.run(debug=False, use_reloader=False, host="0.0.0.0", port=8465)
+    app.run(debug=True, use_reloader=True, host="0.0.0.0", port=8465)
     # Shutdown server
     logger.info('Shutting down server...')
     watcher.stop()

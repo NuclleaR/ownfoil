@@ -1,10 +1,10 @@
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-sm" x-data>
   <div class="navbar-start">
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+    <div class="dropdown" x-bind="Dropdown">
+      <div class="btn btn-ghost lg:hidden" x-bind="DropdownTrigger">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
-      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+      <ul class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li><a href="/" {% if title == 'Library' %}class="active"{% endif %}>Library</a></li>
         {% if admin_account_created == false or (current_user.is_authenticated and current_user.has_shop_access()) %}
         <li><a href="/setup" {% if title == 'Setup' %}class="active"{% endif %}>Setup</a></li>
